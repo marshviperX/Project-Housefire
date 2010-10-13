@@ -12,7 +12,22 @@
 
 PandaFramework framework;
 NodePath camera;
+NodePath environment;
 PT(AudioManager) audioManager;
+
+double rotateEnvironmentX = 0;
+
+AsyncTask::DoneStatus rotate_environment_task(GenericAsyncTask* task, void* data){
+	environment.set_hpr(rotateEnvironmentX, 0, 0);
+
+	if (rotateEnvironmentX >= 360) {
+		rotateEnvironmentX = 0;
+	} else {
+		rotateEnvironmentX++;
+	}
+
+	return AsyncTask::DS_cont;
+}
 
 AsyncTask::DoneStatus audiomanager_update_task(GenericAsyncTask* task, void* data){
 	audioManager->update();
@@ -50,17 +65,21 @@ int main(int argc, char *argv[]) {
 	NodePath dlnp = window->get_render().attach_new_node(d_light);
 
 	// Load the environment model
-	NodePath environ = window->load_model(framework.get_models(), "mayantemple");
+	environment = window->load_model(framework.get_models(), "mayantemple");
 	//Tell it to be lit
-	environ.set_light(dlnp);
+	environment.set_light(dlnp);
 	// Reparent the model to render
-	environ.reparent_to(window->get_render());
+	environment.reparent_to(window->get_render());
 	// Apply transforms to the model (scale + position)
-	environ.set_scale(5, 5, 5);
-//	environ.set_pos(-8, 42, 0);
+	environment.set_scale(5, 5, 5);
+	environment.set_pos(0, 42, -14);
+	
+	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
+	
+	PT(GenericAsyncTask) rotateEnvironmentTask = new GenericAsyncTask("RotateEnvironmentTask", &rotate_environment_task, (void*) NULL);
+	taskMgr->add(rotateEnvironmentTask);
 
 	// Add a task that updates the audioManager every frame
-	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
 	PT(GenericAsyncTask) audioManagerUpdateTask = new GenericAsyncTask("AudioManagerUpdateTask", &audiomanager_update_task, (void*) NULL);
 	taskMgr->add(audioManagerUpdateTask);
 
