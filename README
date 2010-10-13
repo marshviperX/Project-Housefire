@@ -6,4 +6,6 @@ This is the very early, pre-alpha "playing around" stage of /g/'s planned game -
 Build Instructions
 ==================
 
-The only dependency (so far) for Project Housefire is Panda3D 1.6.2 (Stable). You can most likely build against a newer version, but I never have so shit might go down.
+The only dependency (so far) for Project Housefire is Panda3D 1.6.2 (Stable). it also has been shown to build against a newer version, but I guarantee nothing.
+
+Panda3D might shit itself if you don't have the Python development files installed. If you get PyObject errors, this is why. "aptitude install python-dev" should fix it.
