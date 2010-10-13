@@ -1,18 +1,23 @@
 #include "pandaFramework.h"
 #include "pandaSystem.h"
 #include "load_prc_file.h"
+#include "asyncTaskManager.h"
 #include "ambientLight.h"
 #include "directionalLight.h"
 #include "audioManager.h"
-#include "audioSound.h"
 
 #ifdef _MSC_VER
 #include <tchar.h>
 #endif
 
 PandaFramework framework;
-
 NodePath camera;
+PT(AudioManager) audioManager;
+
+AsyncTask::DoneStatus audiomanager_update_task(GenericAsyncTask* task, void* data){
+	audioManager->update();
+	return AsyncTask::DS_cont;
+}
 
 #ifdef _MSC_VER
 int WINAPI _tWinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nShowCmd) {
@@ -54,11 +59,17 @@ int main(int argc, char *argv[]) {
 	environ.set_scale(5, 5, 5);
 //	environ.set_pos(-8, 42, 0);
 
+	// Add a task that updates the audioManager every frame
+	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
+	PT(GenericAsyncTask) audioManagerUpdateTask = new GenericAsyncTask("AudioManagerUpdateTask", &audiomanager_update_task, (void*) NULL);
+	taskMgr->add(audioManagerUpdateTask);
+
 	// Play hurr.ogg
-	PT(AudioManager) audioManager = AudioManager::create_AudioManager();
+	audioManager = AudioManager::create_AudioManager();
 	PT(AudioSound) hurr = audioManager->get_sound("ambience.ogg");
 
 	audioManager->set_volume(1.0f);
+	hurr->set_loop(true);
 	hurr->play();
 
 	//Do the main loop
