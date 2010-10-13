@@ -79,8 +79,8 @@
       <AdditionalDependencies>libpanda.lib;libpandafx.lib;libpandaexpress.lib;libp3framework.lib;libp3dtoolconfig.lib;libp3dtool.lib;libp3pystub.lib;libp3direct.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>cp $(SolutionDir)../../*.prc $(SolutionDir)../../bin/$(Configuration)
-cp $(SolutionDir)../../*.egg $(SolutionDir)../../bin/$(Configuration)</Command>
+      <Command>copy "$(SolutionDir)..\..\*.prc" "$(SolutionDir)..\..\bin\$(Configuration)" /y
+copy "$(SolutionDir)..\..\*.egg" "$(SolutionDir)..\..\bin\$(Configuration)" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -103,7 +103,8 @@ cp $(SolutionDir)../../*.egg $(SolutionDir)../../bin/$(Configuration)</Command>
       <AdditionalDependencies>libpanda.lib;libpandafx.lib;libpandaexpress.lib;libp3framework.lib;libp3dtoolconfig.lib;libp3dtool.lib;libp3pystub.lib;libp3direct.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>cp $(SolutionDir)../../*.prc $(SolutionDir)../../bin/$(Configuration)</Command>
+      <Command>copy "$(SolutionDir)..\..\*.prc" "$(SolutionDir)..\..\bin\$(Configuration)" /y
+copy "$(SolutionDir)..\..\*.egg" "$(SolutionDir)..\..\bin\$(Configuration)" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
