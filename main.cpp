@@ -54,3 +54,5 @@ int main(int argc, char *argv[]) {
 	framework.close_framework();
 	return 0;
 }
+
+#warning "Welcome to the botnet."
