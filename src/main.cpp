@@ -37,27 +37,26 @@ int main(int argc, char *argv[]) {
 	//Open the created window
 	WindowFramework *window = framework.open_window();
 
+	//Get camera node from window
 	camera = window->get_camera_group();
 
 	//Default trackballing
 	window->setup_trackball();
-
-	//Room for actual code
 
 	//Add a spotlight
 	PT(DirectionalLight) d_light;
 	d_light = new DirectionalLight("my d_light");
 	NodePath dlnp = window->get_render().attach_new_node(d_light);
 
-	// Load the environment model
-	NodePath environ = window->load_model(framework.get_models(), "mayantemple");
-	//Tell it to be lit
-	environ.set_light(dlnp);
+	// Load the temple model
+	NodePath temple = window->load_model(framework.get_models(), "mayantemple");
+	// Apply the light to model
+	temple.set_light(dlnp);
 	// Reparent the model to render
-	environ.reparent_to(window->get_render());
+	temple.reparent_to(window->get_render());
 	// Apply transforms to the model (scale + position)
-	environ.set_scale(5, 5, 5);
-//	environ.set_pos(-8, 42, 0);
+	temple.set_scale(5, 5, 5);
+//	temple.set_pos(-8, 42, 0);
 
 	// Add a task that updates the audioManager every frame
 	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
