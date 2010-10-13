@@ -50,15 +50,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Programs\Panda3D-1.7.0\include;C:\Program Files\Python 2.6\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Programs\Panda3D-1.7.0\lib;C:\Program Files\Python 2.6\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(PANDA3D_PATH)\include;$(PYTHON_PATH)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(PANDA3D_PATH)\lib;$(PYTHON_PATH)\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)../../bin/$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)../../build/$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>D:\Programs\Panda3D-1.7.0\lib;C:\Program Files\Python 2.6\libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>D:\Programs\Panda3D-1.7.0\include;C:\Program Files\Python 2.6\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(PANDA3D_PATH)\lib;$(PYTHON_PATH)\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(PANDA3D_PATH)\include;$(PYTHON_PATH)\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)../../bin/$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)../../build/$(Configuration)\</IntDir>
   </PropertyGroup>
