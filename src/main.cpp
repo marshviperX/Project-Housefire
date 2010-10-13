@@ -1,8 +1,11 @@
 #include "pandaFramework.h"
 #include "pandaSystem.h"
+audio-library-name	p3openal_audio
 #include "load_prc_file.h"
 #include "ambientLight.h"
 #include "directionalLight.h"
+#include "audioManager.h"
+#include "audioSound.h"
 
 #ifdef _MSC_VER
 #include <tchar.h>
@@ -51,6 +54,13 @@ int main(int argc, char *argv[]) {
 	// Apply transforms to the model (scale + position)
 	environ.set_scale(5, 5, 5);
 //	environ.set_pos(-8, 42, 0);
+
+	// Play hurr.ogg
+	PT(AudioManager) audioManager = AudioManager::create_AudioManager();
+	PT(AudioSound) hurr = audioManager->get_sound("hurr.ogg");
+
+    audioManager->set_volume(1.0f);
+	hurr->play();
 
 	//Do the main loop
 	framework.main_loop();
