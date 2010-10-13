@@ -1,0 +1,9 @@
+PROJECT HOUSEFIRE
+=================
+
+This is the very early, pre-alpha "playing around" stage of /g/'s planned game -- an epic tale of cross-genre dungeon crawling.
+
+Build Instructions
+==================
+
+The only dependency (so far) for Project Housefire is Panda3D 1.6.2 (Stable). You can most likely build against a newer version, but I never have so shit might go down.
