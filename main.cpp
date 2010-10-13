@@ -4,11 +4,21 @@
 #include "ambientLight.h"
 #include "directionalLight.h"
 
+#ifdef _MSC_VER
+#include <tchar.h>
+#endif
+
 PandaFramework framework;
 
 NodePath camera;
 
+#ifdef _MSC_VER
+int WINAPI _tWinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nShowCmd) {
+	int argc = 0;
+	char** argv = 0;
+#else
 int main(int argc, char *argv[]) {
+#endif
 
 	//Load our settings file
 	load_prc_file("housefire.prc");
