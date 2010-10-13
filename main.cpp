@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 	//Open a new window framework
 	framework.open_framework(argc, argv);
 	//Set the window title
-	framework.set_window_title("Panda3d first program");
+	framework.set_window_title("Project Housefire Rendering/Camera Test");
 	//Open the created window
 	WindowFramework *window = framework.open_window();
 
