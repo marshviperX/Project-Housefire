@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 	//Apply the following to all models
 	for (int i = 0 ; i < children.size() ; i++) {
 		children[i].set_scale(7, 7, 7);				//Scale it up
-		children[i].set_pos(-170 + ( i * 120), 500, 0);
+		children[i].set_pos(-170 + ( i * 120), 500, 0); 	//Apply positioning. Just split the mup a bit so that they can all be viewed.
 		children[i].set_light(dlnp);				//Apply lighting
 		children[i].reparent_to(window->get_render());		//Apply it to the window for rendering
 	}
