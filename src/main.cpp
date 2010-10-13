@@ -5,7 +5,7 @@
 #include "ambientLight.h"
 #include "directionalLight.h"
 #include "audioManager.h"
-#include <vector>
+#include "nodePathCollection.h"
 #include "audioSound.h"
 
 #ifdef _MSC_VER
@@ -15,9 +15,6 @@
 PandaFramework framework;
 NodePath camera;
 PT(AudioManager) audioManager;
-
-//Vector to hold multiple model files
-vector<NodePath> models;
 
 AsyncTask::DoneStatus audiomanager_update_task(GenericAsyncTask* task, void* data){
 	audioManager->update();
@@ -53,20 +50,20 @@ int main(int argc, char *argv[]) {
 	d_light = new DirectionalLight("my d_light");
 	NodePath dlnp = window->get_render().attach_new_node(d_light);
 
-	// Load the temple model
-	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
-	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
-	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
+	// Load the temple model in 3 instances
+	for (int i = 0; i < 3; i++) {
+		window->load_model(framework.get_models(), "mayantemple");
+	}
 
-	//For each model file in the vector
-	for (int i = 0; i < models.size(); i++) {
-		// Apply the light to models
-		models[i].set_light(dlnp);
-		// Reparent the model to render in the window
-		models[i].reparent_to(window->get_render());
-		// Apply transforms to the model (scale + position)
-		models[i].set_scale(5, 5, 5);
-		models[i].set_pos(-10 + ( i * 150), 0, 0);
+	//Access to all models
+	NodePathCollection children = framework.get_models().get_children();
+
+	//Apply the following to all models
+	for (int i = 0 ; i < children.size() ; i++) {
+		children[i].set_scale(2, 2, 2);				//Scale it up
+		children[i].set_pos(-100 + ( i * 150), 0, 0);
+		children[i].set_light(dlnp);				//Apply lighting
+		children[i].reparent_to(window->get_render());		//Apply it to the window for rendering
 	}
 
 	// Add a task that updates the audioManager every frame
