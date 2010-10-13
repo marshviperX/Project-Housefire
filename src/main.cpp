@@ -5,11 +5,8 @@
 #include "ambientLight.h"
 #include "directionalLight.h"
 #include "audioManager.h"
-<<<<<<< HEAD
 #include <vector>
-=======
 #include "audioSound.h"
->>>>>>> 565c1d97d13027742a40953c147137f122ff3ace
 
 #ifdef _MSC_VER
 #include <tchar.h>
@@ -57,7 +54,6 @@ int main(int argc, char *argv[]) {
 	NodePath dlnp = window->get_render().attach_new_node(d_light);
 
 	// Load the temple model
-<<<<<<< HEAD
 	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
 	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
 	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
@@ -72,17 +68,9 @@ int main(int argc, char *argv[]) {
 		models[i].set_scale(5, 5, 5);
 		models[i].set_pos(-10 + ( i * 150), 0, 0);
 	}
-=======
 	NodePath temple = window->load_model(framework.get_models(), "mayantemple");
 	// Apply the light to model
 	temple.set_light(dlnp);
-
-    // Reparent the model to render
-	temple.reparent_to(window->get_render());
-	// Apply transforms to the model (scale + position)
-	temple.set_scale(5, 5, 5);
-//	temple.set_pos(-8, 42, 0);
->>>>>>> 565c1d97d13027742a40953c147137f122ff3ace
 
 	// Add a task that updates the audioManager every frame
 	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
@@ -94,10 +82,10 @@ int main(int argc, char *argv[]) {
 	PT(AudioSound) hurr = audioManager->get_sound("ambience.ogg");
 
 	audioManager->set_volume(1.0f);
-    hurr->set_loop(true);
+	hurr->set_loop(true);
 	hurr->play();
 
-    //Do the main loop
+	//Do the main loop
 	framework.main_loop();
 	//Close the window
 	framework.close_framework();
