@@ -5,6 +5,7 @@
 #include "ambientLight.h"
 #include "directionalLight.h"
 #include "audioManager.h"
+#include <vector>
 
 #ifdef _MSC_VER
 #include <tchar.h>
@@ -13,6 +14,9 @@
 PandaFramework framework;
 NodePath camera;
 PT(AudioManager) audioManager;
+
+//Vector to hold multiple model files
+vector<NodePath> models;
 
 AsyncTask::DoneStatus audiomanager_update_task(GenericAsyncTask* task, void* data){
 	audioManager->update();
@@ -49,14 +53,20 @@ int main(int argc, char *argv[]) {
 	NodePath dlnp = window->get_render().attach_new_node(d_light);
 
 	// Load the temple model
-	NodePath temple = window->load_model(framework.get_models(), "mayantemple");
-	// Apply the light to model
-	temple.set_light(dlnp);
-	// Reparent the model to render
-	temple.reparent_to(window->get_render());
-	// Apply transforms to the model (scale + position)
-	temple.set_scale(5, 5, 5);
-//	temple.set_pos(-8, 42, 0);
+	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
+	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
+	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
+
+	//For each model file in the vector
+	for (int i = 0; i < models.size(); i++) {
+		// Apply the light to models
+		models[i].set_light(dlnp);
+		// Reparent the model to render in the window
+		models[i].reparent_to(window->get_render());
+		// Apply transforms to the model (scale + position)
+		models[i].set_scale(5, 5, 5);
+		models[i].set_pos(-10 + ( i * 150), 0, 0);
+	}
 
 	// Add a task that updates the audioManager every frame
 	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
