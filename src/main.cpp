@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
 
 	// Play hurr.ogg
 	PT(AudioManager) audioManager = AudioManager::create_AudioManager();
-	PT(AudioSound) hurr = audioManager->get_sound("ambiance.ogg");
+	PT(AudioSound) hurr = audioManager->get_sound("ambience.ogg");
 
     audioManager->set_volume(1.0f);
 	hurr->play();
