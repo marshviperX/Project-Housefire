@@ -60,8 +60,8 @@ int main(int argc, char *argv[]) {
 
 	//Apply the following to all models
 	for (int i = 0 ; i < children.size() ; i++) {
-		children[i].set_scale(2, 2, 2);				//Scale it up
-		children[i].set_pos(-100 + ( i * 150), 0, 0);
+		children[i].set_scale(7, 7, 7);				//Scale it up
+		children[i].set_pos(-170 + ( i * 120), 500, 0);
 		children[i].set_light(dlnp);				//Apply lighting
 		children[i].reparent_to(window->get_render());		//Apply it to the window for rendering
 	}
