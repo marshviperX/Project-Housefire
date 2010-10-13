@@ -87,7 +87,8 @@ int main(int argc, char *argv[]) {
 	NodePath temple = window->load_model(framework.get_models(), "mayantemple");
 	// Apply the light to model
 	temple.set_light(dlnp);
-	
+
+	// Add a task that updates the audioManager every frame
 	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
 	
 	PT(GenericAsyncTask) rotateTemplesTask = new GenericAsyncTask("RotateTemplesTask", &rotate_temples_task, (void*) NULL);
