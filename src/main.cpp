@@ -5,6 +5,8 @@
 #include "ambientLight.h"
 #include "directionalLight.h"
 #include "audioManager.h"
+#include <vector>
+#include "audioSound.h"
 
 #ifdef _MSC_VER
 #include <tchar.h>
@@ -12,18 +14,22 @@
 
 PandaFramework framework;
 NodePath camera;
-NodePath environment;
 PT(AudioManager) audioManager;
 
-double rotateEnvironmentX = 0;
+//Vector to hold multiple model files
+vector<NodePath> models;
 
-AsyncTask::DoneStatus rotate_environment_task(GenericAsyncTask* task, void* data){
-	environment.set_hpr(rotateEnvironmentX, 0, 0);
+double rotateTemplesX = 0;
 
-	if (rotateEnvironmentX >= 360) {
-		rotateEnvironmentX = 0;
+AsyncTask::DoneStatus rotate_temples_task(GenericAsyncTask* task, void* data){
+	for (int i = 0; i < models.size(); i++) {
+		models[i].set_hpr(rotateTemplesX, 0, 0);
+	}
+
+	if (rotateTemplesX >= 360) {
+		rotateTemplesX = 0;
 	} else {
-		rotateEnvironmentX++;
+		rotateTemplesX++;
 	}
 
 	return AsyncTask::DS_cont;
@@ -52,33 +58,41 @@ int main(int argc, char *argv[]) {
 	//Open the created window
 	WindowFramework *window = framework.open_window();
 
+	//Get camera node from window
 	camera = window->get_camera_group();
 
 	//Default trackballing
 	window->setup_trackball();
-
-	//Room for actual code
 
 	//Add a spotlight
 	PT(DirectionalLight) d_light;
 	d_light = new DirectionalLight("my d_light");
 	NodePath dlnp = window->get_render().attach_new_node(d_light);
 
-	// Load the environment model
-	environment = window->load_model(framework.get_models(), "mayantemple");
-	//Tell it to be lit
-	environment.set_light(dlnp);
-	// Reparent the model to render
-	environment.reparent_to(window->get_render());
-	// Apply transforms to the model (scale + position)
-	environment.set_scale(5, 5, 5);
-	environment.set_pos(0, 42, -14);
+	// Load the temple model
+	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
+	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
+	models.push_back(window->load_model(framework.get_models(), "mayantemple"));
+
+	//For each model file in the vector
+	for (int i = 0; i < models.size(); i++) {
+		// Apply the light to models
+		models[i].set_light(dlnp);
+		// Reparent the model to render in the window
+		models[i].reparent_to(window->get_render());
+		// Apply transforms to the model (scale + position)
+		models[i].set_scale(5, 5, 5);
+		models[i].set_pos(-10 + ( i * 150), 0, 0);
+	}
+	NodePath temple = window->load_model(framework.get_models(), "mayantemple");
+	// Apply the light to model
+	temple.set_light(dlnp);
 	
 	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
 	
-	PT(GenericAsyncTask) rotateEnvironmentTask = new GenericAsyncTask("RotateEnvironmentTask", &rotate_environment_task, (void*) NULL);
-	taskMgr->add(rotateEnvironmentTask);
-
+	PT(GenericAsyncTask) rotateTemplesTask = new GenericAsyncTask("RotateTemplesTask", &rotate_temples_task, (void*) NULL);
+	taskMgr->add(rotateTemplesTask);
+	
 	// Add a task that updates the audioManager every frame
 	PT(GenericAsyncTask) audioManagerUpdateTask = new GenericAsyncTask("AudioManagerUpdateTask", &audiomanager_update_task, (void*) NULL);
 	taskMgr->add(audioManagerUpdateTask);
