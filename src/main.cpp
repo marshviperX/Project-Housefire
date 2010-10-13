@@ -70,17 +70,10 @@ int main(int argc, char *argv[]) {
 	PT(AudioSound) hurr = audioManager->get_sound("ambience.ogg");
 
 	audioManager->set_volume(1.0f);
-	hurr->set_loop(true);
+    hurr->set_loop(true);
 	hurr->play();
 
-	// Play hurr.ogg
-	PT(AudioManager) audioManager = AudioManager::create_AudioManager();
-	PT(AudioSound) hurr = audioManager->get_sound("hurr.ogg");
-
-    audioManager->set_volume(1.0f);
-	hurr->play();
-
-	//Do the main loop
+    //Do the main loop
 	framework.main_loop();
 	//Close the window
 	framework.close_framework();

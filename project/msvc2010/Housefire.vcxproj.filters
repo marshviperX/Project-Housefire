@@ -20,5 +20,8 @@
     <None Include="..\..\mayantemple.egg">
       <Filter>assets</Filter>
     </None>
+    <None Include="..\..\ambience.ogg">
+      <Filter>assets</Filter>
+    </None>
   </ItemGroup>
 </Project>
