@@ -68,9 +68,6 @@ int main(int argc, char *argv[]) {
 		models[i].set_scale(5, 5, 5);
 		models[i].set_pos(-10 + ( i * 150), 0, 0);
 	}
-	NodePath temple = window->load_model(framework.get_models(), "mayantemple");
-	// Apply the light to model
-	temple.set_light(dlnp);
 
 	// Add a task that updates the audioManager every frame
 	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
