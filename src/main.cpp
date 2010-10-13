@@ -42,12 +42,6 @@ int main(int argc, char *argv[]) {
 	d_light = new DirectionalLight("my d_light");
 	NodePath dlnp = window->get_render().attach_new_node(d_light);
 
-	//Add ambient light
-//	alight = AmbientLight('alight')
-//	alight.setColor(VBase4(0.2, 0.2, 0.2, 1))
-//	alnp = render.attachNewNode(alight)
-//	render.setLight(alnp)
-
 	// Load the environment model
 	NodePath environ = window->load_model(framework.get_models(), "mayantemple");
 	//Tell it to be lit
