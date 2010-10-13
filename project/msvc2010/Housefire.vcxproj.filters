@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{97da6b32-19a4-4416-96ec-b9e1d1dadf6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{cdaa1dc2-b212-408c-80a9-8c0afbac4048}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\housefire.prc">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="..\..\mayantemple.egg">
+      <Filter>assets</Filter>
+    </None>
+  </ItemGroup>
+</Project>
