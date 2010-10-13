@@ -1,6 +1,5 @@
 #include "pandaFramework.h"
 #include "pandaSystem.h"
-audio-library-name	p3openal_audio
 #include "load_prc_file.h"
 #include "ambientLight.h"
 #include "directionalLight.h"
@@ -57,7 +56,7 @@ int main(int argc, char *argv[]) {
 
 	// Play hurr.ogg
 	PT(AudioManager) audioManager = AudioManager::create_AudioManager();
-	PT(AudioSound) hurr = audioManager->get_sound("hurr.ogg");
+	PT(AudioSound) hurr = audioManager->get_sound("ambiance.ogg");
 
     audioManager->set_volume(1.0f);
 	hurr->play();
