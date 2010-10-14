@@ -9,3 +9,26 @@ Build Instructions
 The only dependency (so far) for Project Housefire is Panda3D 1.6.2 (Stable). It also has been shown to build against a newer version, but I guarantee nothing.
 
 Panda3D might shit itself if you don't have the Python development files installed. If you get PyObject errors, this is why. "aptitude install python-dev" should fix it.
+
+Checking out the Latest Sources
+===============================
+
+To check out the latest sources, create a clone of the github master branch on your local machine:
+
+"git clone git://github.com/LAMMJohnson/Project-Housefire.git housefire" will create a clone of the repository located in the housefire subdirectory. Simply move to this directory and "make".
+
+Building with Microsoft Visual Studio 2010 on Windows 7
+=======================================================
+
+Download and install the following dependencies:
+
+    * CPython 2.6 binaries: http://www.python.org/download/releases/2.6.6/
+    * Panda 3D 1.7.0 binaries: http://www.panda3d.org/download/panda3d-1.7.0/Panda3D-1.7.0.exe
+
+Next, set up the following system environment variables by going to Start Menu -> Control Panel -> System -> Advanced System Settings -> Environment Variables -> New:
+
+PYTHON_PATH should be set to the root of the directory where you installed CPython 2.6. For example, if you installed CPython 2.6 to "C:\Program Files\Python 2.6", then that should be what you set the PYTHON_PATH environment variable to.
+
+PANDA3D_PATH should be set the root of the directory where you installed Panda3D.
+
+Finally, open <housefire-root>\project\msvc2010\Housefire.sln in Microsoft Visual Studio 2010, and from the file menu, select Build -> Build Solution. Depending on the current configuration, the binaries should be built and placed in the <housefire-root>\bin\Debug or <housefire-root>\bin\Release directories.

@@ -5,6 +5,7 @@
 #include "ambientLight.h"
 #include "directionalLight.h"
 #include "audioManager.h"
+#include "nodePathCollection.h"
 #include "audioSound.h"
 
 #ifdef _MSC_VER
@@ -13,7 +14,18 @@
 
 PandaFramework framework;
 NodePath camera;
+WindowFramework *window;
 PT(AudioManager) audioManager;
+
+double rotateCameraX = 0;
+
+AsyncTask::DoneStatus rotate_camera_task(GenericAsyncTask* task, void* data){	
+	camera.set_hpr(rotateCameraX, 0, 0);
+
+	rotateCameraX >= 360 ? rotateCameraX = 0 : rotateCameraX++;
+
+	return AsyncTask::DS_cont;
+}
 
 AsyncTask::DoneStatus audiomanager_update_task(GenericAsyncTask* task, void* data){
 	audioManager->update();
@@ -36,7 +48,7 @@ int main(int argc, char *argv[]) {
 	//Set the window title
 	framework.set_window_title("Project Housefire Rendering/Camera Test");
 	//Open the created window
-	WindowFramework *window = framework.open_window();
+	window = framework.open_window();
 
 	//Get camera node from window
 	camera = window->get_camera_group();
@@ -49,19 +61,31 @@ int main(int argc, char *argv[]) {
 	d_light = new DirectionalLight("my d_light");
 	NodePath dlnp = window->get_render().attach_new_node(d_light);
 
-	// Load the temple model
+	// Load the temple model in 3 instances
+	for (int i = 0; i < 20; i++) {
+		window->load_model(framework.get_models(), "mayantemple");
+	}
+
+	//Access to all models
+	NodePathCollection children = framework.get_models().get_children();
+
+	//Apply the following to all models
+	for (int i = 0 ; i < children.size() ; i++) {
+		children[i].set_scale(7, 7, 7);				//Scale it up
+		children[i].set_pos(300*sin(i), 300*cos(i), 0); 	//Apply positioning. Just split the mup a bit so that they can all be viewed.
+		children[i].set_light(dlnp);				//Apply lighting
+		children[i].reparent_to(window->get_render());		//Apply it to the window for rendering
+	}
 	NodePath temple = window->load_model(framework.get_models(), "mayantemple");
 	// Apply the light to model
 	temple.set_light(dlnp);
 
-    // Reparent the model to render
-	temple.reparent_to(window->get_render());
-	// Apply transforms to the model (scale + position)
-	temple.set_scale(5, 5, 5);
-//	temple.set_pos(-8, 42, 0);
-
-	// Add a task that updates the audioManager every frame
 	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
+	
+//	PT(GenericAsyncTask) rotateCameraTask = new GenericAsyncTask("RotateCameraTask", &rotate_camera_task, (void*) NULL);
+//	taskMgr->add(rotateCameraTask);
+	
+	// Add a task that updates the audioManager every frame
 	PT(GenericAsyncTask) audioManagerUpdateTask = new GenericAsyncTask("AudioManagerUpdateTask", &audiomanager_update_task, (void*) NULL);
 	taskMgr->add(audioManagerUpdateTask);
 
@@ -70,10 +94,10 @@ int main(int argc, char *argv[]) {
 	PT(AudioSound) hurr = audioManager->get_sound("ambience.ogg");
 
 	audioManager->set_volume(1.0f);
-    hurr->set_loop(true);
+	hurr->set_loop(true);
 	hurr->play();
 
-    //Do the main loop
+	//Do the main loop
 	framework.main_loop();
 	//Close the window
 	framework.close_framework();

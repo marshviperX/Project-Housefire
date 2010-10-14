@@ -1,0 +1,117 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXFileReference section */
+		27D75D3F1266656400C30CE6 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../src/main.cpp; sourceTree = SOURCE_ROOT; };
+		27D75D421266658100C30CE6 /* housefire.prc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = housefire.prc; path = ../../housefire.prc; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		27D75D28126664E500C30CE6 = {
+			isa = PBXGroup;
+			children = (
+				27D75D421266658100C30CE6 /* housefire.prc */,
+				27D75D3F1266656400C30CE6 /* main.cpp */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		27D75D4A1266664300C30CE6 /* make */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = " $(ACTION)";
+			buildConfigurationList = 27D75D4D1266666100C30CE6 /* Build configuration list for PBXLegacyTarget "make" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = ../../;
+			dependencies = (
+			);
+			name = make;
+			passBuildSettingsInEnvironment = 1;
+			productName = make;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		27D75D2A126664E500C30CE6 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 27D75D2D126664E500C30CE6 /* Build configuration list for PBXProject "housefire" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 0;
+			mainGroup = 27D75D28126664E500C30CE6;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				27D75D4A1266664300C30CE6 /* make */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		27D75D2B126664E500C30CE6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		27D75D2C126664E500C30CE6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			name = Release;
+		};
+		27D75D4B1266664300C30CE6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = make;
+			};
+			name = Debug;
+		};
+		27D75D4C1266664300C30CE6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = make;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		27D75D2D126664E500C30CE6 /* Build configuration list for PBXProject "housefire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27D75D2B126664E500C30CE6 /* Debug */,
+				27D75D2C126664E500C30CE6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27D75D4D1266666100C30CE6 /* Build configuration list for PBXLegacyTarget "make" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27D75D4B1266664300C30CE6 /* Debug */,
+				27D75D4C1266664300C30CE6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 27D75D2A126664E500C30CE6 /* Project object */;
+}
