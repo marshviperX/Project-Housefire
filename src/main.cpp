@@ -1,16 +1,37 @@
-#include "pandaFramework.h"
-#include "pandaSystem.h"
-#include "load_prc_file.h"
-#include "asyncTaskManager.h"
-#include "ambientLight.h"
-#include "directionalLight.h"
-#include "audioManager.h"
-#include "nodePathCollection.h"
-#include "audioSound.h"
+//
+// Project Housefire
+// Copyright (C) 2010 LAMMJohnson
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
 
-#ifdef _MSC_VER
-#include <tchar.h>
+
+#include "housefire.hpp"
+
+#ifdef HOUSEFIRE_PLATFORM_WINDOWS
+#   include <tchar.h>
 #endif
+
+#include <pandaFramework.h>
+#include <pandaSystem.h>
+#include <load_prc_file.h>
+#include <asyncTaskManager.h>
+#include <ambientLight.h>
+#include <directionalLight.h>
+#include <audioManager.h>
+#include <nodePathCollection.h>
+#include <audioSound.h>
 
 PandaFramework framework;
 NodePath camera;
@@ -32,10 +53,11 @@ AsyncTask::DoneStatus audiomanager_update_task(GenericAsyncTask* task, void* dat
 	return AsyncTask::DS_cont;
 }
 
-#ifdef _MSC_VER
-int WINAPI _tWinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nShowCmd) {
-	int argc = 0;
-	char** argv = 0;
+#ifdef HOUSEFIRE_PLATFORM_WINDOWS
+int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nShowCmd) {
+    // TODO: convert lpCmdLine into standard argc/argv pair
+    int argc = 0;
+    char** argv = 0;
 #else
 int main(int argc, char *argv[]) {
 #endif
@@ -71,8 +93,8 @@ int main(int argc, char *argv[]) {
 
 	//Apply the following to all models
 	for (int i = 0 ; i < children.size() ; i++) {
-		children[i].set_scale(7, 7, 7);				//Scale it up
-		children[i].set_pos(300*sin(i), 300*cos(i), 0); 	//Apply positioning. Just split the mup a bit so that they can all be viewed.
+		children[i].set_scale(7.0f, 7.0f, 7.0f);				//Scale it up
+		children[i].set_pos(300.0f * sinf(i), 300.0f * cosf(i), 0); 	//Apply positioning. Just split the mup a bit so that they can all be viewed.
 		children[i].set_light(dlnp);				//Apply lighting
 		children[i].reparent_to(window->get_render());		//Apply it to the window for rendering
 	}

@@ -24,4 +24,9 @@
       <Filter>assets</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\housefire.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
