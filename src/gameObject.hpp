@@ -21,32 +21,68 @@
 #define HOUSEFIRE_GAMEOBJECT_HPP
 
 
-#include "housefire.hpp"
-#include <namable.h>
-#include <time_base.h>
-#include <typedReferenceCount.h>
+#include "gameObjectManager.hpp"
 #include <vector>
 
 
 class GameObject : public TypedReferenceCount, public Namable
 {
+	friend class GameObjectManager;
+
 public:
-    
-    GameObject();
+	
+	GameObject();
 
-    GameObject(std::string const& name);
+	GameObject(std::string const& name);
 
-    void add_controller(GameObjectControllerPtr const& controller);
+	GameObjectManager* get_manager() const;
 
-    void remove_controller(GameObjectControllerPtr const& controller);
+	void add_controller(GameObjectControllerPtr const& controller);
 
-    virtual void update(Time_Span const& elapsed);
+	void remove_controller(GameObjectControllerPtr const& controller);
+
+	void add_dependency(GameObjectPtr const& dependency);
+
+	void remove_dependency(GameObjectPtr const& dependency);
+
+	virtual void reset();
+
+	virtual void update(Time_Span const& elapsed);
+
+	static TypeHandle get_class_type();
+
+	static void init_type();
 
 private:
 
-    typedef std::vector< GameObjectControllerPtr > ControllerContainer;
-    ControllerContainer _controllers;
+	typedef std::vector< GameObjectControllerPtr > ControllerContainer;
+	
+	static TypeHandle _type_handle;
+
+	GameObjectManager* _manager;
+	ControllerContainer _controllers;
 };
+
+
+inline GameObjectManager* GameObject::get_manager() const {
+	return _manager;
+}
+
+inline void GameObject::add_dependency(GameObjectPtr const& dependency) {
+	_manager->add_object_dependency(GameObjectPtr(this), dependency);
+}
+
+inline void GameObject::remove_dependency(GameObjectPtr const& dependency) {
+	_manager->remove_object_dependency(GameObjectPtr(this), dependency);
+}
+
+inline TypeHandle GameObject::get_class_type() {
+	return _type_handle;
+}
+
+inline void GameObject::init_type() {
+	register_type(_type_handle, "GameObject", TypedReferenceCount::get_class_type(), Namable::get_class_type());
+}
 
 
 #endif // HOUSEFIRE_GAMEOBJECT_HPP

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\gameObject.cpp" />
     <ClCompile Include="..\..\src\gameObjectController.cpp" />
+    <ClCompile Include="..\..\src\gameObjectManager.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +28,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\gameObject.hpp" />
     <ClInclude Include="..\..\src\gameObjectController.hpp" />
+    <ClInclude Include="..\..\src\gameObjectManager.hpp" />
     <ClInclude Include="..\..\src\housefire.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

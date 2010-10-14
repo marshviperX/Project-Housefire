@@ -22,34 +22,39 @@
 #include <algorithm>
 
 
+TypeHandle GameObject::_type_handle;
+
+
 GameObject::GameObject() {
 }
 
 GameObject::GameObject(std::string const& name)
-    : Namable(name) {
+: Namable(name) {
 }
 
 void GameObject::add_controller(GameObjectControllerPtr const& controller) {
-    assert(controller != 0);
+	assert(controller != 0);
 
-    ControllerContainer::iterator itr = std::find(_controllers.begin(), _controllers.end(), controller);
-    if (itr != _controllers.end()) {
-        return;
-    }
+	ControllerContainer::iterator itr = std::find(_controllers.begin(), _controllers.end(), controller);
+	if (itr != _controllers.end()) {
+		return;
+	}
 
-    _controllers.push_back(controller);
+	_controllers.push_back(controller);
 }
 
 void GameObject::remove_controller(GameObjectControllerPtr const& controller) {
-    assert(controller != 0);
-    ControllerContainer::iterator itr = std::remove(_controllers.begin(), _controllers.end(), controller);
-    _controllers.erase(itr, _controllers.end());
+	assert(controller != 0);
+	ControllerContainer::iterator itr = std::remove(_controllers.begin(), _controllers.end(), controller);
+	_controllers.erase(itr, _controllers.end());
+}
+
+void GameObject::reset() {
 }
 
 void GameObject::update(Time_Span const& elapsed) {
-    for ( ControllerContainer::iterator itr = _controllers.begin(), end = _controllers.end();
-        itr != end;
-        ++itr ) {
-            (*itr)->update(elapsed);
-    }
+	for ( ControllerContainer::iterator itr = _controllers.begin(), end = _controllers.end();
+		itr != end; ++itr ) {
+		(*itr)->update(this, elapsed);
+	}
 }

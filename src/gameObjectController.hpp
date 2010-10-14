@@ -22,18 +22,33 @@
 
 
 #include "housefire.hpp"
-#include <time_base.h>
-#include <typedReferenceCount.h>
 
 
 class GameObjectController : public TypedReferenceCount
 {
 public:
 
-    GameObjectController();
+	GameObjectController();
 
-    virtual void update(Time_Span const& elapsed);
+	virtual void update(GameObject* object, Time_Span const& elapsed);
+
+	static TypeHandle get_class_type();
+
+	static void init_type();
+
+private:
+
+	static TypeHandle _type_handle;
 };
+
+
+inline TypeHandle GameObjectController::get_class_type() {
+	return _type_handle;
+}
+
+inline void GameObjectController::init_type() {
+	register_type(_type_handle, "GameObjectController", TypedReferenceCount::get_class_type());
+}
 
 
 #endif // HOUSEFIRE_GAMEOBJECTCONTROLLER_HPP

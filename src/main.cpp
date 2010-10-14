@@ -55,9 +55,9 @@ AsyncTask::DoneStatus audiomanager_update_task(GenericAsyncTask* task, void* dat
 
 #ifdef HOUSEFIRE_PLATFORM_WINDOWS
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nShowCmd) {
-    // TODO: convert lpCmdLine into standard argc/argv pair
-    int argc = 0;
-    char** argv = 0;
+	// TODO: convert lpCmdLine into standard argc/argv pair
+	int argc = 0;
+	char** argv = 0;
 #else
 int main(int argc, char *argv[]) {
 #endif
