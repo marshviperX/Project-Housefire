@@ -82,8 +82,8 @@ int main(int argc, char *argv[]) {
 
 	PT(AsyncTaskManager) taskMgr = AsyncTaskManager::get_global_ptr();
 	
-	PT(GenericAsyncTask) rotateCameraTask = new GenericAsyncTask("RotateCameraTask", &rotate_camera_task, (void*) NULL);
-	taskMgr->add(rotateCameraTask);
+//	PT(GenericAsyncTask) rotateCameraTask = new GenericAsyncTask("RotateCameraTask", &rotate_camera_task, (void*) NULL);
+//	taskMgr->add(rotateCameraTask);
 	
 	// Add a task that updates the audioManager every frame
 	PT(GenericAsyncTask) audioManagerUpdateTask = new GenericAsyncTask("AudioManagerUpdateTask", &audiomanager_update_task, (void*) NULL);
