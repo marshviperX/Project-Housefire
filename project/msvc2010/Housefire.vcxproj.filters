@@ -12,6 +12,12 @@
     <ClCompile Include="..\..\src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\gameObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gameObjectController.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\housefire.prc">
@@ -26,6 +32,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\housefire.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gameObject.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gameObjectController.hpp">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

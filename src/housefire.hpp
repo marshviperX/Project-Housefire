@@ -20,7 +20,6 @@
 #ifndef HOUSEFIRE_HPP
 #define HOUSEFIRE_HPP
 
-
 #if defined(__APPLE__) || defined(__APPLE_CC__)
 #   error "Apple platforms not yet supported, should include TargetConditionals.h and perform full platform detection."
 #elif defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__WIN64__)
@@ -35,5 +34,13 @@
 #   define HOUSEFIRE_COMPILER_MSVC
 #endif
 
+#include <pandabase.h>
+#include <pointerTo.h>
+
+class GameObject;
+class GameObjectController;
+
+typedef PointerTo< GameObject > GameObjectPtr;
+typedef PointerTo< GameObjectController > GameObjectControllerPtr;
 
 #endif // HOUSEFIRE_HPP
