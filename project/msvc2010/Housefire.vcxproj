@@ -53,14 +53,14 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(PANDA3D_PATH)\include;$(PYTHON_PATH)\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(PANDA3D_PATH)\lib;$(PYTHON_PATH)\libs;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)../../bin/$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)../../</OutDir>
     <IntDir>$(SolutionDir)../../build/$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>$(PANDA3D_PATH)\lib;$(PYTHON_PATH)\libs;$(LibraryPath)</LibraryPath>
     <IncludePath>$(PANDA3D_PATH)\include;$(PYTHON_PATH)\include;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)../../bin/$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)../../</OutDir>
     <IntDir>$(SolutionDir)../../build/$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -80,8 +80,8 @@
       <AdditionalDependencies>libpanda.lib;libpandafx.lib;libpandaexpress.lib;libp3framework.lib;libp3dtoolconfig.lib;libp3dtool.lib;libp3pystub.lib;libp3direct.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)..\..\*.prc" "$(SolutionDir)..\..\bin\$(Configuration)" /y
-copy "$(SolutionDir)..\..\*.egg" "$(SolutionDir)..\..\bin\$(Configuration)" /y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,9 +104,8 @@ copy "$(SolutionDir)..\..\*.egg" "$(SolutionDir)..\..\bin\$(Configuration)" /y</
       <AdditionalDependencies>libpanda.lib;libpandafx.lib;libpandaexpress.lib;libp3framework.lib;libp3dtoolconfig.lib;libp3dtool.lib;libp3pystub.lib;libp3direct.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)..\..\*.prc" "$(SolutionDir)..\..\bin\$(Configuration)" /y
-copy "$(SolutionDir)..\..\*.egg" "$(SolutionDir)..\..\bin\$(Configuration)" /y
-copy "$(SolutionDir)..\..\*.ogg" "$(SolutionDir)..\..\bin\$(Configuration)" /y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
