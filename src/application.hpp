@@ -26,7 +26,7 @@
 #include <genericAsyncTask.h>
 #include <windowFramework.h>
 
-#ifdef HOUSEFIRE_COMPILER_WINDOWS
+#ifdef HOUSEFIRE_PLATFORM_WINDOWS
 #	include <tchar.h>
 #endif
 
@@ -46,13 +46,15 @@ public:
 
 	WindowFramework* get_window() const;
 
-	GameObjectManagerPtr const& get_object_mgr() const;
+	PointerTo< AudioManager > const& get_audio_manager() const;
 
-	bool initiate(int argc, char** argv);
+	GameObjectManagerPtr const& get_object_manager() const;
 
-#ifdef HOUSEFIRE_COMPILER_WINDOWS
+#ifdef HOUSEFIRE_PLATFORM_WINDOWS
 	bool initiate(LPTSTR commandLine);
 #endif
+
+	bool initiate(int argc, char** argv);
 
 	void terminate();
 
@@ -61,6 +63,14 @@ public:
 private:
 
 	Application();
+
+	bool initiate_engine(int argc, char** argv);
+
+	void terminate_engine();
+
+	bool load_assets();
+
+	void unload_assets();
 
 	void update();
 
@@ -71,8 +81,10 @@ private:
 	ConfigPage* _config_page;
 	PandaFramework* _framework;
 	WindowFramework* _window;
-	GameObjectManagerPtr _object_mgr;
+	GameObjectManagerPtr _object_manager;
+	PointerTo< AudioManager > _audio_manager;
 	PointerTo< GenericAsyncTask > _update_task;
+	PointerTo< AudioSound > _background_music;
 };
 
 
@@ -88,8 +100,12 @@ inline WindowFramework* Application::get_window() const {
 	return _window;
 }
 
-inline GameObjectManagerPtr const& Application::get_object_mgr() const {
-	return _object_mgr;
+inline PointerTo< AudioManager > const& Application::get_audio_manager() const {
+	return _audio_manager;
+}
+
+inline GameObjectManagerPtr const& Application::get_object_manager() const {
+	return _object_manager;
 }
 
 

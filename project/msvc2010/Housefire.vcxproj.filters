@@ -4,9 +4,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{97da6b32-19a4-4416-96ec-b9e1d1dadf6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="assets">
-      <UniqueIdentifier>{cdaa1dc2-b212-408c-80a9-8c0afbac4048}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -24,17 +21,6 @@
     <ClCompile Include="..\..\src\application.cpp">
       <Filter>src</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\housefire.prc">
-      <Filter>assets</Filter>
-    </None>
-    <None Include="..\..\mayantemple.egg">
-      <Filter>assets</Filter>
-    </None>
-    <None Include="..\..\ambience.ogg">
-      <Filter>assets</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\housefire.hpp">

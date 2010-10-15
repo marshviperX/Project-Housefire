@@ -19,6 +19,7 @@
 
 #include "application.hpp"
 #include "gameObjectManager.hpp"
+#include <audioManager.h>
 #include <asyncTaskManager.h>
 #include <clockObject.h>
 #include <load_prc_file.h>
@@ -35,31 +36,6 @@ Application* Application::instance() {
 	return &_instance;
 }
 
-bool Application::initiate(int argc, char** argv) {
-	// TODO: should probably clone a default configuration file from the resource
-	// directory, copy it to a local user directory (eg. "~/.housefire/housefire.prc")
-	// and load the configuration from there.
-	_config_page = load_prc_file("housefire.prc");
-	if (!_config_page) {
-		return false;
-	}
-	
-	_framework = new PandaFramework;
-	_framework->open_framework(argc, argv);
-	_framework->set_window_title("Project Housefire");
-
-	_window = _framework->open_window();
-	if (!_window) {
-		return false;
-	}
-	
-	_update_task = new GenericAsyncTask("HousefireUpdateTask", &Application::update_task_callback, this);
-	_framework->get_task_mgr().add(_update_task);
-
-	_object_mgr = new GameObjectManager;
-	return true;
-}
-
 #ifdef HOUSEFIRE_PLATFORM_WINDOWS
 bool Application::initiate(LPTSTR command_line) {
 	// TODO: convert command_line to char string and tokenize the arguments before
@@ -68,22 +44,85 @@ bool Application::initiate(LPTSTR command_line) {
 }
 #endif
 
-void Application::terminate() {
-	_object_mgr.clear();
+bool Application::initiate(int argc, char** argv) {
+	if (!initiate_engine(argc, argv)) {
+		return false;
+	}
 
+	if (!load_assets()) {
+		return false;
+	}
+
+	return true;
+}
+
+void Application::terminate() {
+	unload_assets();
+	terminate_engine();
+}
+
+bool Application::initiate_engine(int argc, char** argv) {
+	// TODO: should probably clone a default configuration file from the resource
+	// directory, copy it to a local user directory (eg. "~/.housefire/housefire.prc")
+	// and load the configuration from there.
+	_config_page = load_prc_file("housefire.prc");
+	if (!_config_page) {
+		return false;
+	}
+
+	_framework = new PandaFramework;
+	_framework->open_framework(argc, argv);
+	_framework->set_window_title("Project Housefire");
+
+	_window = _framework->open_window();
+	if (!_window) {
+		return false;
+	}
+
+	_audio_manager = AudioManager::create_AudioManager();
+	_audio_manager->set_volume(1.0f);
+
+	_object_manager = new GameObjectManager;
+
+	_update_task = new GenericAsyncTask("HousefireUpdateTask", &Application::update_task_callback, this);
+	_framework->get_task_mgr().add(_update_task);
+
+	return true;
+}
+
+void Application::terminate_engine() {
 	if (_update_task) {
 		_framework->get_task_mgr().remove(_update_task);
 		_update_task.clear();
 	}
 
+	_object_manager.clear();
+	_audio_manager.clear();
+
 	delete _framework;
 	_framework = 0;
 	_window = 0;
-	
+
 	if (_config_page) {
 		unload_prc_file(_config_page);
 		_config_page = 0;
 	}
+}
+
+bool Application::load_assets() {
+	_background_music = _audio_manager->get_sound("assets/music/ambience.ogg");
+	if (!_background_music) {
+		return false;
+	}
+
+	_background_music->set_loop(true);
+	_background_music->play();
+
+	return true;
+}
+
+void Application::unload_assets() {
+	_background_music.clear();
 }
 
 void Application::run() {
@@ -95,10 +134,8 @@ void Application::run() {
 void Application::update() {
 	ClockObject* clock = ClockObject::get_global_clock();
 	double elapsed = clock->get_dt();
-
-	if (_object_mgr) {
-		_object_mgr->update(elapsed);
-	}
+	_object_manager->update(elapsed);
+	_audio_manager->update();
 }
 
 AsyncTask::DoneStatus Application::update_task_callback(GenericAsyncTask* task, void* data) {
