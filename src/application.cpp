@@ -65,6 +65,7 @@ bool Application::initiate_engine(int argc, char** argv) {
 	// TODO: should probably clone a default configuration file from the resource
 	// directory, copy it to a local user directory (eg. "~/.housefire/housefire.prc")
 	// and load the configuration from there.
+	
 	_config_page = load_prc_file("housefire.prc");
 	if (!_config_page) {
 		return false;
@@ -110,6 +111,13 @@ void Application::terminate_engine() {
 }
 
 bool Application::load_assets() {
+	// TODO: This will load in the intro screen, menu, and other common assets.
+	// Loading in modules/levels will need to be changed to be more data driven,
+	// de-serializing the game objects and scene graph from disk. Much of this
+	// code might be better placed and managed in separate classes for the
+	// different stages of the game or screens in the menu, ie. MainMenu,
+	// SinglePlayerMenu, GameWorld, etc.
+	
 	_background_music = _audio_manager->get_sound("assets/music/ambience.ogg");
 	if (!_background_music) {
 		return false;
