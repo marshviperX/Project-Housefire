@@ -26,5 +26,5 @@ TypeHandle GameObjectController::_type_handle;
 GameObjectController::GameObjectController() {
 }
 
-void GameObjectController::update(GameObject* object, Time_Span const& elapsed) {
+void GameObjectController::update(GameObject* object, double elapsed) {
 }

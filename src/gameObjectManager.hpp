@@ -43,11 +43,13 @@ public:
 
 	void remove_object(GameObjectPtr const& object);
 
+	void remove_all_objects();
+
 	void add_object_dependency(GameObjectPtr const& object, GameObjectPtr const& dependency);
 
 	void remove_object_dependency(GameObjectPtr const& object, GameObjectPtr const& dependency);
 
-	void update(Time_Span const& elapsed);
+	void update(double elapsed);
 
 	static TypeHandle get_class_type();
 
@@ -62,10 +64,6 @@ private:
 		ObjectContainer dependents;
 		ObjectContainer dependencies;
 		bool visited;
-
-		ObjectNode()
-		: visited(false) {
-		}
 	};
 
 	typedef std::tr1::unordered_map< GameObject*, ObjectNode > ObjectNodeMap;

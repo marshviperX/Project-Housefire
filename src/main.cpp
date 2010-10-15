@@ -17,14 +17,35 @@
 //
 
 
-#include "housefire.hpp"
+#include "application.hpp"
 
-#ifdef HOUSEFIRE_PLATFORM_WINDOWS
-#   include <tchar.h>
+
+#ifndef HOUSEFIRE_PLATFORM_WINDOWS
+int main(int argc, char** argv) {
+#else
+int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nShowCmd) {
 #endif
+	Application* app = Application::instance();
+	
+	try {
+#ifndef HOUSEFIRE_PLATFORM_WINDOWS
+		if (app->initiate(argc, argv)) {
+#else
+		if (app->initiate(lpCmdLine)) {
+#endif
+			app->run();
+		}
+	}
+	catch(...) {
+		app->terminate();
+		return 1;
+	}
 
-#include <pandaFramework.h>
-#include <pandaSystem.h>
+	app->terminate();
+	return 0;
+}
+
+/*
 #include <load_prc_file.h>
 #include <asyncTaskManager.h>
 #include <ambientLight.h>
@@ -41,27 +62,25 @@ PT(AudioManager) audioManager;
 double rotateCameraX = 0;
 
 AsyncTask::DoneStatus rotate_camera_task(GenericAsyncTask* task, void* data){	
-	camera.set_hpr(rotateCameraX, 0, 0);
+camera.set_hpr(rotateCameraX, 0, 0);
 
-	rotateCameraX >= 360 ? rotateCameraX = 0 : rotateCameraX++;
+rotateCameraX >= 360 ? rotateCameraX = 0 : rotateCameraX++;
 
-	return AsyncTask::DS_cont;
+return AsyncTask::DS_cont;
 }
 
 AsyncTask::DoneStatus audiomanager_update_task(GenericAsyncTask* task, void* data){
-	audioManager->update();
-	return AsyncTask::DS_cont;
+audioManager->update();
+return AsyncTask::DS_cont;
 }
 
-#ifdef HOUSEFIRE_PLATFORM_WINDOWS
+#ifndef HOUSEFIRE_PLATFORM_WINDOWS
+int main(int argc, char** argv) {
+#else
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nShowCmd) {
-	// TODO: convert lpCmdLine into standard argc/argv pair
 	int argc = 0;
 	char** argv = 0;
-#else
-int main(int argc, char *argv[]) {
-#endif
-
+#endif	
 	//Load our settings file
 	load_prc_file("housefire.prc");
 
@@ -125,3 +144,4 @@ int main(int argc, char *argv[]) {
 	framework.close_framework();
 	return 0;
 }
+*/

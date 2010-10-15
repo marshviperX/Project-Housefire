@@ -30,7 +30,7 @@ public:
 
 	GameObjectController();
 
-	virtual void update(GameObject* object, Time_Span const& elapsed);
+	virtual void update(GameObject* object, double elapsed);
 
 	static TypeHandle get_class_type();
 

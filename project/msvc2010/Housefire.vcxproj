@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\application.cpp" />
     <ClCompile Include="..\..\src\gameObject.cpp" />
     <ClCompile Include="..\..\src\gameObjectController.cpp" />
     <ClCompile Include="..\..\src\gameObjectManager.cpp" />
@@ -26,6 +27,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\application.hpp" />
     <ClInclude Include="..\..\src\gameObject.hpp" />
     <ClInclude Include="..\..\src\gameObjectController.hpp" />
     <ClInclude Include="..\..\src\gameObjectManager.hpp" />
@@ -60,15 +62,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(PANDA3D_PATH)\include;$(PYTHON_PATH)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(PANDA3D_PATH)\lib;$(PYTHON_PATH)\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(PANDA3D_PATH)\include;$(PANDA3D_PATH)\python\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(PANDA3D_PATH)\lib;$(PANDA3D_PATH)\python\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)../../</OutDir>
     <IntDir>$(SolutionDir)../../build/$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(PANDA3D_PATH)\lib;$(PYTHON_PATH)\libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(PANDA3D_PATH)\include;$(PYTHON_PATH)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(PANDA3D_PATH)\lib;$(PANDA3D_PATH)\python\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(PANDA3D_PATH)\include;$(PANDA3D_PATH)\python\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)../../</OutDir>
     <IntDir>$(SolutionDir)../../build/$(Configuration)\</IntDir>
   </PropertyGroup>

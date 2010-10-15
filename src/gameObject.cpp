@@ -25,11 +25,13 @@
 TypeHandle GameObject::_type_handle;
 
 
-GameObject::GameObject() {
+GameObject::GameObject()
+: _manager(0) {
 }
 
 GameObject::GameObject(std::string const& name)
-: Namable(name) {
+: Namable(name),
+_manager(0) {
 }
 
 void GameObject::add_controller(GameObjectControllerPtr const& controller) {
@@ -52,9 +54,8 @@ void GameObject::remove_controller(GameObjectControllerPtr const& controller) {
 void GameObject::reset() {
 }
 
-void GameObject::update(Time_Span const& elapsed) {
-	for ( ControllerContainer::iterator itr = _controllers.begin(), end = _controllers.end();
-		itr != end; ++itr ) {
+void GameObject::update(double elapsed) {
+	for (ControllerContainer::iterator itr = _controllers.begin(), end = _controllers.end(); itr != end; ++itr) {
 		(*itr)->update(this, elapsed);
 	}
 }

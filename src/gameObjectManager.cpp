@@ -83,6 +83,13 @@ void GameObjectManager::remove_object(GameObjectPtr const& object) {
 	object->_manager = 0;
 }
 
+void GameObjectManager::remove_all_objects() {
+	_objects_to_reset.clear();
+	_objects_by_name.clear();
+	_object_nodes.clear();
+	_ordered_objects.clear();
+}
+
 void GameObjectManager::add_object_dependency(GameObjectPtr const& object, GameObjectPtr const& dependency) {
 	assert((object != 0) && (object->get_manager() == this));
 	assert((dependency != 0) && (dependency->get_manager() == this));
@@ -121,7 +128,7 @@ void GameObjectManager::remove_object_dependency(GameObjectPtr const& object, Ga
 	_objects_need_sorting = true;
 }
 
-void GameObjectManager::update(Time_Span const& elapsed) {
+void GameObjectManager::update(double elapsed) {
 	if (!_objects_to_reset.empty()) {
 		reset_pending_objects();
 	}

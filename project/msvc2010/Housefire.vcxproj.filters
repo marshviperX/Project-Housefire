@@ -21,6 +21,9 @@
     <ClCompile Include="..\..\src\gameObjectManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\application.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\housefire.prc">
@@ -44,6 +47,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\gameObjectManager.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\application.hpp">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

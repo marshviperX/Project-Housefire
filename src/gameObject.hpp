@@ -47,7 +47,7 @@ public:
 
 	virtual void reset();
 
-	virtual void update(Time_Span const& elapsed);
+	virtual void update(double elapsed);
 
 	static TypeHandle get_class_type();
 

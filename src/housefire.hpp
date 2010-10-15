@@ -36,12 +36,12 @@
 #endif
 
 
-#include <pandabase.h>
 #include <pandaFramework.h>
 #include <pandaSystem.h>
-#include <time_base.h>
+#include <pandabase.h>
 
 
+class Application;
 class GameObject;
 class GameObjectController;
 class GameObjectManager;
